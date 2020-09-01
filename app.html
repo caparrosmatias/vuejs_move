@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Calculadora de espacios
+            </h1>
+            <h2 class="subtitle">
+              Desarrollado en Vue.js
+            </h2>
+          </div>
+        </div>
+      </section>
+
+    
+    
+
+    <div class='container'>
+    <div id='app'>
+      <!--Construyo columnas-->
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <br><br>
+          <!--Agrego nuevo dato-->
+          <h3 class="title is-4">Agregar un item</h3>
+          <template>
+            <section>
+                <b-field label="Nombre">
+                    <b-autocomplete
+                        rounded
+                        v-model="name"
+                        :data="filteredDataArray"
+                        placeholder="ej: Sillon"
+                        clearable
+                        @select="option => selected = option">
+                        <template slot="empty">No hay coincidencias</template>
+                    </b-autocomplete>
+                </b-field>
+              </section>    
+            </template>
+          <br>
+          <b-field label="Tamaño"><b-input rounded placeholder="ej: 2.5" type="number" min="0" max="10" v-model="mts" v-on:keyup.enter="agregaritem"></b-field>
+          <b-field label="Cantidad"><b-input rounded placeholder="ej: 3" type="number" min="0" max="10" v-model="cant" v-on:keyup.enter="agregaritem"></b-field>
+          <br>
+          <b-button type="is-primary is-light" class="btn btn-primary" @click="agregaritem" @click="success">Agregar</b-button>
+          <br>
+          <!--Fin nuevo dato-->
+        </div>
+
+
+        <div class="column">
+          <br><br><!--
+          <div v-for="(item, index) of items">
+            <b-tag type="is-primary is-light" size="is-medium">{{ item.nombre }}</b-tag>
+                          {{index}} - Nombre: {{item.nombre}} - Tamaño: {{ item.metros }} - Cant: {{ item.cantidad }} ==> Tot: {{ item.cantidad * item.metros }} -      
+            <button class="btn btn-danger btn-sm" @click="eliminar(index)">X</button>
+        </div>-->
+        </div>
+
+        <div class="column is-one-fifth">
+          <br><br>
+          <h3 class="title is-4">Articulos precargados</h3>
+          <b-button focused expanded>Bicicleta</b-button>
+          <b-button focused expanded @click="agregarcama">Cama</b-button>
+          <b-button focused expanded>Escritorio</b-button>
+          <b-button focused expanded>Heladera</b-button>
+          <b-button focused expanded>Mesa</b-button>
+          <b-button focused expanded>Sillon</b-button>
+          <b-button focused expanded>Silla</b-button>
+
+        </div>
+
+      </div>
+
+      <!--Fin Columnas-->
+      <a v-for="(item, index) of items">
+        <b-tag type="is-primary is-light" size="is-medium">{{ item.nombre }} <button class="btn btn-danger btn-sm" @click="eliminar(index)">✖</button></b-tag> -
+      </a>
+      <br><br>
+
+      <hr style="color:#000000;"/>
+
+      <div class="container">
+      <section>
+      <h3 class="title is-4">Resumen de datos cargados</h3>
+
+
+      <b-table :data="items" :columns="columns"></b-table>
+
+      <hr style="color:#000000;"/>
+
+      <b-button type="is-primary is-light" class="btn btn-primary" @click="total">Calcular</b-button>
+
+      <br><br>
+      <h3 class="subtitle is-5"> Tamaño: {{ suma }} m2 / Baulera proxima: {{ baulera }}</h3>         
+        </section>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
